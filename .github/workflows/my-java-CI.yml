@@ -27,5 +27,5 @@ jobs:
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
       # upload coverage on code climate:
       - name: Upload code climate report
-        command: ./app/cc-test-reporter upload-coverage -r $CC_TEST_REPORTER_ID
+        uses: ./app/cc-test-reporter upload-coverage -r $CC_TEST_REPORTER_ID
         when: on_success
