@@ -1,5 +1,5 @@
 my-java-CI.yml.DEFAULT_GOAL := build-run
-
+# comments
 setup:
 	gradle wrapper --gradle-version 8.3
 
