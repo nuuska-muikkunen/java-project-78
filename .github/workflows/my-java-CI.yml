@@ -15,12 +15,10 @@ jobs:
           java-version: '20'
       - uses: gradle/gradle-build-action@v2
         with:
-          build-root-directory: app
-          gradle-version: 8.3
           arguments: build
-      - run: make lint
-      - run: make test
-      - uses: paambaati/codeclimate-action@v3.0.0
+          build-root-directory: app
+      - name: Publish code coverage
+        uses: paambaati/codeclimate-action@v3.0.0
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
           JACOCO_SOURCE_PATH: app/src/main/java
