@@ -28,4 +28,3 @@ jobs:
       # upload coverage on code climate:
       - name: Upload code climate report
         uses: ./app/cc-test-reporter upload-coverage -r $CC_TEST_REPORTER_ID
-        when: on_success
