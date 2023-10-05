@@ -36,11 +36,17 @@ public class StringSchema {
 
     public boolean isValid(String stringForValidation) {
         if (isNotAllowed()) {
-            if (Objects.equals(stringForValidation, null) || stringForValidation.equals("")) {return false;}
+            if (Objects.equals(stringForValidation, null) || stringForValidation.equals("")) {
+                return false;
+            }
         }
-        if (!Objects.equals(stringForValidation, null) && stringForValidation.length() < minimumLengthAllowed) { return false;}
+        if (!Objects.equals(stringForValidation, null) && stringForValidation.length() < minimumLengthAllowed) {
+            return false;
+        }
         for (String string : arrayOfStringsIncluded) {
-            if (!stringForValidation.contains(string)) {return false;}
+            if (!stringForValidation.contains(string)) {
+                return false;
+            }
         }
         return true;
     }
@@ -52,13 +58,17 @@ public class StringSchema {
       // которое не позволяет использовать null или пустую строку в качестве значения
 
     public StringSchema set(int length1) {
-        if (length1 > getMinimumLengthAllowed()) {setMinimumLengthAllowed(length1);}
+        if (length1 > getMinimumLengthAllowed()) {
+            setMinimumLengthAllowed(length1);
+        }
         return this;
     } //— добавляет в схему ограничение минимальной длины для строки.
       // Строка должна быть равна или длиннее указанного числа
 
     public StringSchema contains(String str) {
-        if (!this.arrayOfStringsIncluded.contains(str)) this.arrayOfStringsIncluded.add(str);
+        if (!this.arrayOfStringsIncluded.contains(str)) {
+            this.arrayOfStringsIncluded.add(str);
+        }
         return this;
     } //— добавляет в схему ограничение по содержимому строки. Строка должна содержать определённую подстроку
 }
