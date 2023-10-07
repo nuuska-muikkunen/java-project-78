@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class StringSchema {
+public class StringSchema extends BaseSchema {
     //constraints
     private int minimumLengthAllowed = 0;
     private List<String> arrayOfStringsIncluded = new ArrayList<>();
-    private boolean isNotAllowed;
+//    private boolean isNotAllowed;
 
     public int getMinimumLengthAllowed() {
         return minimumLengthAllowed;
@@ -18,44 +18,28 @@ public class StringSchema {
         this.minimumLengthAllowed = minimumLengthAllowed;
     }
 
-    public List<String> getArrayOfStringsIncluded() {
-        return arrayOfStringsIncluded;
-    }
-
-    public void setArrayOfStringsIncluded(List<String> arrayOfStringsIncluded) {
-        this.arrayOfStringsIncluded = arrayOfStringsIncluded;
-    }
-
-    public boolean isNotAllowed() {
-        return this.isNotAllowed;
-    }
-
-    public void setNotAllowed(boolean notAllowed) {
-        this.isNotAllowed = notAllowed;
-    }
-
-    public boolean isValid(String stringForValidation) {
-        if (isNotAllowed()) {
-            if (Objects.equals(stringForValidation, null) || stringForValidation.equals("")) {
-                return false;
-            }
+    @Override
+    public boolean isValid(Object stringForValidation) {
+        if (!(Objects.equals(stringForValidation, null)) && (!(stringForValidation instanceof String))) {
+            return false;
         }
-        if (!Objects.equals(stringForValidation, null) && stringForValidation.length() < minimumLengthAllowed) {
+        if (isNotAllowed() && Objects.equals(stringForValidation, null)) {
+            return false;
+        }
+        if (isNotAllowed() && stringForValidation.toString().equals("")) {
+            return false;
+        }
+        if (!Objects.equals(stringForValidation, null)
+                && stringForValidation.toString().length() < getMinimumLengthAllowed()) {
             return false;
         }
         for (String string : arrayOfStringsIncluded) {
-            if (!stringForValidation.contains(string)) {
+            if (!stringForValidation.toString().contains(string)) {
                 return false;
             }
         }
         return true;
     }
-
-    public StringSchema required() {
-        setNotAllowed(true);
-        return this;
-    } //— делает данные обязательными для заполнения. Иными словами добавляет в схему ограничение,
-      // которое не позволяет использовать null или пустую строку в качестве значения
 
     public StringSchema set(int length1) {
         if (length1 > getMinimumLengthAllowed()) {
