@@ -16,8 +16,6 @@ public abstract class BaseSchema<T> {
         setNotAllowed(true);
         return this;
     }
-// делает данные обязательными для заполнения. Иными словами добавляет в схему ограничение,
-// которое не позволяет использовать null или пустую строку в качестве значения
 
     public abstract boolean isValid(T obj);
 

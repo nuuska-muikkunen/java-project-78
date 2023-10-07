@@ -1,33 +1,21 @@
 package hexlet.code;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.Map;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class MapSchema extends BaseSchema<Map<?, ?>> {
     private boolean notAnyLength = false;
     private boolean isForShapeValidation = false;
     private List<Integer> arrayOfLengthsAllowed = new ArrayList<>();
-
     private Map<String, BaseSchema> mapOfSchemas = new HashMap<>();
-
-    public boolean isForShapeValidation() {
-        return isForShapeValidation;
-    }
-
-    public void setForShapeValidation(boolean forShapeValidation) {
-        isForShapeValidation = forShapeValidation;
-    }
-
-    public boolean isAnyLength() {
-        return notAnyLength;
-    }
-
-    public void setAnyLength(boolean anyLength) {
-        notAnyLength = anyLength;
-    }
 
     @Override
     public boolean isValid(Map<?, ?> mapForValidation) {
@@ -35,7 +23,7 @@ public class MapSchema extends BaseSchema<Map<?, ?>> {
             return !isNotAllowed();
         }
 
-        if (isAnyLength()) {
+        if (isNotAnyLength()) {
             for (Integer size : arrayOfLengthsAllowed) {
                 if (mapForValidation.size() == size) {
                     return true;
@@ -63,7 +51,7 @@ public class MapSchema extends BaseSchema<Map<?, ?>> {
     }
 
     public MapSchema sizeof(Integer size) {
-        setAnyLength(true);
+        setNotAnyLength(true);
         if (!this.arrayOfLengthsAllowed.contains(size)) {
             this.arrayOfLengthsAllowed.add(size);
         }

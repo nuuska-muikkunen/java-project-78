@@ -1,46 +1,25 @@
 package hexlet.code;
 
-import java.util.Objects;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import java.util.Objects;
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class NumberSchema extends BaseSchema {
-    //constraints
     private int lowBorder = Integer.MIN_VALUE;
     private int highBorder = Integer.MAX_VALUE;
     private boolean isPositive = false;
-
-    public int getLowBorder() {
-        return lowBorder;
-    }
-
-    public void setLowBorder(int lowBorder) {
-        this.lowBorder = lowBorder;
-    }
-
-    public int getHighBorder() {
-        return highBorder;
-    }
-
-    public void setHighBorder(int highBorder) {
-        this.highBorder = highBorder;
-    }
-
-    public boolean isPositive() {
-        return this.isPositive;
-    }
-
-    public void setPositive(boolean positive) {
-        this.isPositive = positive;
-    }
 
     @Override
     public boolean isValid(Object numberForValidation) {
 
         if (Objects.equals(numberForValidation, null)) {
             return !isNotAllowed();
-        } else {
-            if (!(numberForValidation instanceof Integer)) {
-                return false;
-            }
+        }
+
+        if (!(numberForValidation instanceof Integer)) {
+            return false;
         }
 
         if (isPositive() && (Integer) numberForValidation <= 0) {

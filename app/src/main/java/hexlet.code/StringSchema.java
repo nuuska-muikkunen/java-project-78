@@ -1,42 +1,43 @@
 package hexlet.code;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 public class StringSchema extends BaseSchema {
-    //constraints
+
     private int minimumLengthAllowed = 0;
     private List<String> arrayOfStringsIncluded = new ArrayList<>();
 
-    public int getMinimumLengthAllowed() {
-        return minimumLengthAllowed;
-    }
-
-    public void setMinimumLengthAllowed(int minimumLengthAllowed) {
-        this.minimumLengthAllowed = minimumLengthAllowed;
-    }
-
     @Override
     public boolean isValid(Object stringForValidation) {
-        if (!(Objects.equals(stringForValidation, null)) && (!(stringForValidation instanceof String))) {
-            return false;
+
+        if (Objects.equals(stringForValidation, null)) {
+            if (isNotAllowed()) {
+                return false;
+            }
+        } else {
+            if (!(stringForValidation instanceof String)
+                || stringForValidation.toString().length() < getMinimumLengthAllowed()) {
+                return false;
+            }
         }
-        if (isNotAllowed() && Objects.equals(stringForValidation, null)) {
-            return false;
-        }
+
         if (isNotAllowed() && stringForValidation.equals("")) {
             return false;
         }
-        if (!Objects.equals(stringForValidation, null)
-                && stringForValidation.toString().length() < getMinimumLengthAllowed()) {
-            return false;
-        }
+
         for (String string : arrayOfStringsIncluded) {
             if (!stringForValidation.toString().contains(string)) {
                 return false;
             }
         }
+
         return true;
     }
 
@@ -45,13 +46,12 @@ public class StringSchema extends BaseSchema {
             setMinimumLengthAllowed(length1);
         }
         return this;
-    } //— добавляет в схему ограничение минимальной длины для строки.
-      // Строка должна быть равна или длиннее указанного числа
+    }
 
     public StringSchema contains(String str) {
         if (!this.arrayOfStringsIncluded.contains(str)) {
             this.arrayOfStringsIncluded.add(str);
         }
         return this;
-    } //— добавляет в схему ограничение по содержимому строки. Строка должна содержать определённую подстроку
+    }
 }
