@@ -34,12 +34,13 @@ public class NumberSchema extends BaseSchema {
 
     @Override
     public boolean isValid(Object numberForValidation) {
-        if (isNotAllowed() && Objects.equals(numberForValidation, null)) {
-            return false;
-        }
 
-        if (!(Objects.equals(numberForValidation, null)) && (!(numberForValidation instanceof Integer))) {
-            return false;
+        if (Objects.equals(numberForValidation, null)) {
+            return !isNotAllowed();
+        } else {
+            if (!(numberForValidation instanceof Integer)) {
+                return false;
+            }
         }
 
         if (isPositive() && (Integer) numberForValidation <= 0) {
@@ -55,10 +56,10 @@ public class NumberSchema extends BaseSchema {
     }
 
     public NumberSchema range(int lBorder, int hBorder) {
-        if (lBorder < getLowBorder()) {
+        if (lBorder > getLowBorder()) {
             setLowBorder(lBorder);
         }
-        if (hBorder > getHighBorder()) {
+        if (hBorder < getHighBorder()) {
             setHighBorder(hBorder);
         }
         return this;

@@ -1,6 +1,6 @@
 package hexlet.code;
 
-public abstract class BaseSchema {
+public abstract class BaseSchema<T> {
 
     private boolean isNotAllowed;
 
@@ -19,6 +19,6 @@ public abstract class BaseSchema {
 // делает данные обязательными для заполнения. Иными словами добавляет в схему ограничение,
 // которое не позволяет использовать null или пустую строку в качестве значения
 
-    public abstract boolean isValid(Object obj);
+    public abstract boolean isValid(T obj);
 
 }

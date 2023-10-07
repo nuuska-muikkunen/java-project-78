@@ -1,8 +1,11 @@
 import hexlet.code.StringSchema;
 import hexlet.code.NumberSchema;
+import hexlet.code.MapSchema;
 import hexlet.code.Validator;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AppTest {
     @Test
@@ -28,7 +31,6 @@ public class AppTest {
         assertThat(schema.contains("what").isValid("what does the fox say")).isTrue();
         assertThat(schema.contains("whatthe").isValid("what does the fox say")).isFalse();
         assertThat(schema.isValid("what does the fox say")).isFalse();
-
         StringSchema schema1 = v.string();
         assertThat(schema1.set(10).isValid("what does the fox say")).isTrue();
         assertThat(schema1.set(30).isValid("what does the fox say")).isFalse();
@@ -38,22 +40,37 @@ public class AppTest {
     public void numbersRestrictionsTest() {
         Validator v =   new Validator();
         NumberSchema schema = v.number();
-        schema.required();
         // Пока не вызван метод required(), null считается валидным
-        schema.isValid(null); // true
-        schema.positive().isValid(null); // true
+        assertThat(schema.isValid(null)).isTrue();
+        assertThat(schema.positive().isValid(null)).isTrue();
         schema.required();
-        schema.isValid(null); // false
-        schema.isValid("5"); // false
-        schema.isValid(10); // true
-// Потому что ранее мы вызвали метод positive()
-        schema.isValid(-10); // false
-//  Ноль — не положительное число
-        schema.isValid(0); // false
+        assertThat(schema.isValid(null)).isFalse();
+        assertThat(schema.isValid("5")).isFalse();
+        assertThat(schema.isValid(10)).isTrue();
+        assertThat(schema.isValid(-10)).isFalse();
+        assertThat(schema.isValid(0)).isFalse();
         schema.range(5, 10);
-        schema.isValid(5); // true
-        schema.isValid(10); // true
-        schema.isValid(4); // false
-        schema.isValid(11); // false
+        assertThat(schema.isValid(5)).isTrue();
+        assertThat(schema.isValid(10)).isTrue();
+        assertThat(schema.isValid(4)).isFalse();
+        assertThat(schema.isValid(11)).isFalse();
+    }
+
+    @Test
+    public void mapRestrictionsTest() {
+        Validator v = new Validator();
+        MapSchema schema = v.map();
+        assertThat(schema.isValid(null)).isTrue();
+        schema.required();
+        assertThat(schema.isValid(null)).isFalse();
+        System.out.println("new HashMap= " + new HashMap<>());
+        assertThat(schema.isValid(new HashMap<>())).isTrue();
+        Map<String, String> data = new HashMap<>();
+        data.put("key1", "value1");
+        assertThat(schema.isValid(data)).isTrue();
+        schema.sizeof(2);
+        assertThat(schema.isValid(data)).isFalse();
+        data.put("key2", "value2");
+        assertThat(schema.isValid(data)).isTrue();
     }
 }

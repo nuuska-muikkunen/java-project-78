@@ -8,7 +8,6 @@ public class StringSchema extends BaseSchema {
     //constraints
     private int minimumLengthAllowed = 0;
     private List<String> arrayOfStringsIncluded = new ArrayList<>();
-//    private boolean isNotAllowed;
 
     public int getMinimumLengthAllowed() {
         return minimumLengthAllowed;
@@ -26,7 +25,7 @@ public class StringSchema extends BaseSchema {
         if (isNotAllowed() && Objects.equals(stringForValidation, null)) {
             return false;
         }
-        if (isNotAllowed() && stringForValidation.toString().equals("")) {
+        if (isNotAllowed() && stringForValidation.equals("")) {
             return false;
         }
         if (!Objects.equals(stringForValidation, null)
