@@ -32,10 +32,12 @@ public class StringSchema extends BaseSchema {
             return false;
         }
 
-        for (String string : arrayOfStringsIncluded) {
-            if (!stringForValidation.toString().contains(string)) {
-                return false;
+        if (isActiveStringRestriction()) {
+            boolean boo = true;
+            for (String str : arrayOfStringsIncluded) {
+                boo &= stringForValidation.toString().contains(str);
             }
+            return boo;
         }
 
         return true;
@@ -48,10 +50,16 @@ public class StringSchema extends BaseSchema {
         return this;
     }
 
+    @Override
     public StringSchema contains(String str) {
-        if (!this.arrayOfStringsIncluded.contains(str)) {
-            this.arrayOfStringsIncluded.add(str);
-        }
+        setActiveStringRestriction(true);
+        saveRestrictionsStrings(str);
         return this;
+    }
+
+    public void saveRestrictionsStrings(String str) {
+        if (!arrayOfStringsIncluded.contains(str)) {
+            arrayOfStringsIncluded.add(str);
+        }
     }
 }
