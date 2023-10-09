@@ -21,11 +21,6 @@ compileJava {
     options.release = 20
 }
 
-jacoco {
-    toolVersion = "0.8.10"
-    reportsDirectory = layout.buildDirectory.dir('reports/jacoco')
-}
-
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.20'
       annotationProcessor 'org.projectlombok:lombok:1.18.20'
@@ -42,12 +37,9 @@ dependencies {
 }
 
 jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
-//    reports {
-//        xml.required = true
-//        csv.required = false
-//        html.outputLocation = layout.buildDirectory.dir('reports/jacoco/test/html')
-//    }
+    reports {
+        xml.required = true
+    }
 }
 
 test {
