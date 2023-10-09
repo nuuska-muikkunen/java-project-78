@@ -41,7 +41,7 @@ public class StringSchema extends BaseSchema {
         return true;
     }
 
-    public StringSchema set(int length1) {
+    public StringSchema minLength(int length1) {
         if (length1 > getMinimumLengthAllowed()) {
             setMinimumLengthAllowed(length1);
         }
