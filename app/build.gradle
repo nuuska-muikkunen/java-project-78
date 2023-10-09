@@ -43,11 +43,11 @@ dependencies {
 
 jacocoTestReport {
     dependsOn test // tests are required to run before generating the report
-    reports {
-        xml.required = true
-        csv.required = false
-        html.outputLocation = layout.buildDirectory.dir('reports/jacoco/test/html')
-    }
+//    reports {
+//        xml.required = true
+//        csv.required = false
+//        html.outputLocation = layout.buildDirectory.dir('reports/jacoco/test/html')
+//    }
 }
 
 test {
