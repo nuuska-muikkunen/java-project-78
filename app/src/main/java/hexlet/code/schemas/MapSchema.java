@@ -23,26 +23,22 @@ public class MapSchema extends BaseSchema<Map<?, ?>> {
             return !isNotAllowed();
         }
 
-        if (isNotAnyLength()) {
-            for (Integer size : arrayOfLengthsAllowed) {
-                if (mapForValidation.size() == size) {
-                    return true;
-                }
-            }
+        if (isNotAnyLength() && !arrayOfLengthsAllowed.contains(mapForValidation.size())) {
             return false;
         }
 
         if (isForShapeValidation()) {
-            boolean boo = true;
             for (Object key : mapForValidation.keySet()) {
-                boo = boo && mapOfSchemas.get(key).isValid(mapForValidation.get(key));
+                if (!mapOfSchemas.get(key).isValid(mapForValidation.get(key))) {
+                    return false;
+                }
             }
-            return boo;
+            return true;
         }
         return true;
     }
 
-    public MapSchema shape(Map<String, BaseSchema> schemas) {
+    public BaseSchema shape(Map<String, BaseSchema> schemas) {
         setForShapeValidation(true);
         for (String key: schemas.keySet()) {
             this.mapOfSchemas.put(key, schemas.get(key));

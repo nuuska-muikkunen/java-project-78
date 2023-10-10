@@ -11,6 +11,14 @@ public class NumberSchema extends BaseSchema {
     private int highBorder = Integer.MAX_VALUE;
     private boolean isPositive = false;
 
+    public boolean isPositive() {
+        return isPositive;
+    }
+
+    public void setPositive(boolean positive) {
+        isPositive = positive;
+    }
+
     @Override
     public boolean isValid(Object numberForValidation) {
 
