@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class MapSchema extends BaseSchema<Map<?, ?>> {
+public final class MapSchema extends BaseSchema<Map<?, ?>> {
     private boolean notAnyLength = false;
     private boolean isForShapeValidation = false;
     private List<Integer> arrayOfLengthsAllowed = new ArrayList<>();

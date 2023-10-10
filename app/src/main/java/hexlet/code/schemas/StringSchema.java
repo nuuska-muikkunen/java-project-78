@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class StringSchema extends BaseSchema {
+public final class StringSchema extends BaseSchema {
 
     private int minimumLengthAllowed = 0;
 
