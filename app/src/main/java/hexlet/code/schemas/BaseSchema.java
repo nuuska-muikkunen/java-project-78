@@ -11,7 +11,10 @@ public class BaseSchema<T> {
     private boolean isNotAllowed = false;
     private boolean isActiveStringRestriction = false;
     private List<Object> listOfRestrictions = new ArrayList<>();
-
+    /**
+     * This method getListOfRestrictions() returns .
+     * @return type List<Object> list of objects establishing restrictions
+     */
     public List<Object> getListOfRestrictions() {
         return listOfRestrictions;
     }
