@@ -3,3 +3,5 @@
 ### Code Climate Badges
 [![Maintainability](https://api.codeclimate.com/v1/badges/5e086b81013b248fc035/maintainability)](https://codeclimate.com/github/nuuska-muikkunen/java-project-78/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5e086b81013b248fc035/test_coverage)](https://codeclimate.com/github/nuuska-muikkunen/java-project-78/test_coverage)
+### asciinema
+[![asciicast](https://asciinema.org/a/614478.svg)](https://asciinema.org/a/614478)

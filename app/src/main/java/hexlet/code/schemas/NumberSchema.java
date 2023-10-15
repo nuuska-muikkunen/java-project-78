@@ -4,51 +4,36 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Objects;
+import java.util.function.Predicate;
+
 @EqualsAndHashCode(callSuper = true)
 @Data
 public final class NumberSchema extends BaseSchema {
-    private int lowBorder = Integer.MIN_VALUE;
-    private int highBorder = Integer.MAX_VALUE;
-    private boolean isPositive = false;
-
-    public boolean isPositive() {
-        return isPositive;
-    }
-
-    public void setPositive(boolean positive) {
-        isPositive = positive;
-    }
 
     @Override
     public boolean isValid(Object numberForValidation) {
-
         if (Objects.equals(numberForValidation, null)) {
             return !isNotAllowed();
         }
-
         if (!(numberForValidation instanceof Integer)) {
             return false;
         }
 
-        if (isPositive() && (Integer) numberForValidation <= 0) {
-            return false;
+        for (Object key: checks.keySet()) {
+            if (((Predicate) checks.get(key)).test(numberForValidation)) {
+                return false;
+            }
         }
-
-        return ((Integer) numberForValidation) >= getLowBorder() && ((Integer) numberForValidation) <= getHighBorder();
+        return true;
     }
 
     public NumberSchema positive() {
-        setPositive(true);
+        addCheck("positive", i -> ((Integer) i) <= 0);
         return this;
     }
 
-    public NumberSchema range(int lBorder, int hBorder) {
-        if (lBorder > getLowBorder()) {
-            setLowBorder(lBorder);
-        }
-        if (hBorder < getHighBorder()) {
-            setHighBorder(hBorder);
-        }
+    public NumberSchema range(int lowBorder, int highBorder) {
+        addCheck("range", i -> (((Integer) i) < lowBorder || ((Integer) i) > highBorder));
         return this;
     }
 }

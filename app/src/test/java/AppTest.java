@@ -38,7 +38,7 @@ public class AppTest {
 
     @Test
     public void numbersRestrictionsTest() {
-        Validator v =   new Validator();
+        Validator v = new Validator();
         NumberSchema schema = v.number();
         assertThat(schema.isValid(null)).isTrue();
         assertThat(schema.positive().isValid(null)).isTrue();
