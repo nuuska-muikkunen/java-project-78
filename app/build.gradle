@@ -27,7 +27,6 @@ dependencies {
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.24.2'
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.15.2'
     implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.15.2'
-    implementation group: 'info.picocli', name: 'picocli', version: '4.7.4'
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
 }

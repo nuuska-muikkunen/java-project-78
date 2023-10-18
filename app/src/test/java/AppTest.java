@@ -1,8 +1,8 @@
+import hexlet.code.Validator;
+import hexlet.code.schemas.BaseSchema;
 import hexlet.code.schemas.StringSchema;
 import hexlet.code.schemas.NumberSchema;
 import hexlet.code.schemas.MapSchema;
-import hexlet.code.schemas.BaseSchema;
-import hexlet.code.Validator;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.HashMap;
@@ -93,7 +93,7 @@ public class AppTest {
         assertThat(schema.isValid(actual1)).isTrue();
 
         Map<String, BaseSchema> schemas = new HashMap<>();
-        schemas.put("name", v.string().required().contains("ya"));
+        schemas.put("name", v.string().contains("ya").required());
         schemas.put("age", v.number().positive());
 
         schema.shape(schemas);

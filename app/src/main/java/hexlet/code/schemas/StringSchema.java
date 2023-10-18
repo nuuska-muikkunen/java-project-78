@@ -1,25 +1,20 @@
 package hexlet.code.schemas;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-
-import java.util.Objects;
 import java.util.function.Predicate;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
+
 public final class StringSchema extends BaseSchema {
+    private boolean isNotAllowed = false;
     @Override
     public boolean isValid(Object stringForValidation) {
-        if (Objects.equals(stringForValidation, null)) {
-            return !isNotAllowed();
+
+        if (super.isValid(stringForValidation) && !isNotAllowed) {
+            return true;
         }
 
-        if (isNotAllowed() && stringForValidation.equals("")) {
-            return false;
-        }
-
-        if (!(stringForValidation instanceof String)) {
+        isEmptyAndNotString();
+        if (!((Predicate) checks.get("isAllowedAndEmpty")).test(stringForValidation)
+                || !((Predicate) checks.get("isString")).test(stringForValidation)) {
             return false;
         }
 
@@ -28,7 +23,6 @@ public final class StringSchema extends BaseSchema {
                 return false;
             }
         }
-
         return true;
     }
 
@@ -39,6 +33,16 @@ public final class StringSchema extends BaseSchema {
 
     public StringSchema contains(Object restriction) {
         addCheck("contains", s -> ((String) s).contains((String) restriction));
+        return this;
+    }
+
+    public StringSchema required() {
+        isNotAllowed = true;
+        return this;
+    }
+    public StringSchema isEmptyAndNotString() {
+        addCheck("isAllowedAndEmpty", s -> (s != null) && (!isNotAllowed || !s.equals("")));
+        addCheck("isString", s -> s instanceof String);
         return this;
     }
 }
