@@ -9,12 +9,18 @@ import java.util.function.Predicate;
  * @param <T> is type of the object to be validates
  */
 public abstract class BaseSchema<T> {
-    public boolean isNotAllowed;
-
+    private boolean isNotAllowed;
+    /**
+    * This method isNotAllowed() returns the status of null or "" restrictions.
+    * @return boolean true if the restriction active or false if it is not active.
+    */
     public boolean isNotAllowed() {
         return isNotAllowed;
     }
-
+    /**
+     * This method setNotAllowed() sets value to switch of null or "" restrictions.
+     * @param notAllowed is the status of null or "" restrictions: true or false.
+    */
     public void setNotAllowed(boolean notAllowed) {
         this.isNotAllowed = notAllowed;
     }
