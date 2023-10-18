@@ -1,6 +1,6 @@
 package hexlet.code.schemas;
 
-public final class StringSchema extends BaseSchema {
+public final class StringSchema extends BaseSchema<Object> {
 
     public StringSchema() {
         addCheck("isAllowedAndEmpty", s -> (s != null) && (!isNotAllowed() || !s.equals("")));
@@ -12,8 +12,8 @@ public final class StringSchema extends BaseSchema {
         return this;
     }
 
-    public StringSchema contains(Object restriction) {
-        addCheck("contains", s -> ((String) s).contains((String) restriction));
+    public StringSchema contains(String restriction) {
+        addCheck("contains", s -> ((String) s).contains(restriction));
         return this;
     }
 

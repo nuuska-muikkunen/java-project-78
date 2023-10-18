@@ -25,13 +25,13 @@ public abstract class BaseSchema<T> {
         this.isNotAllowed = notAllowed;
     }
 
-    protected Map<String, Predicate> checks = new LinkedHashMap<>();
+    protected Map<String, Predicate<T>> checks = new LinkedHashMap<>();
     /**
      * This method addCheck() sets restriction activities.
      * @param checkName is the name of restriction.
      * @param testCheck is the name of Predicate for restriction test
      */
-    public void addCheck(String checkName, Predicate testCheck) {
+    public void addCheck(String checkName, Predicate<T> testCheck) {
         checks.put(checkName, testCheck);
     }
     /**
