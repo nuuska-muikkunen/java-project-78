@@ -11,7 +11,7 @@ public final class MapSchema extends BaseSchema {
     }
 
     public MapSchema required() {
-        isNotAllowed = true;
+        setNotAllowed(true);
         return this;
     }
 

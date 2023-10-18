@@ -9,7 +9,16 @@ import java.util.function.Predicate;
  * @param <T> is type of the object to be validates
  */
 public abstract class BaseSchema<T> {
-    public boolean isNotAllowed = false;
+    public boolean isNotAllowed;
+
+    public boolean isNotAllowed() {
+        return isNotAllowed;
+    }
+
+    public void setNotAllowed(boolean notAllowed) {
+        this.isNotAllowed = notAllowed;
+    }
+
     protected Map<String, Predicate> checks = new LinkedHashMap<>();
     /**
      * This method addCheck() sets restriction activities.
@@ -28,7 +37,7 @@ public abstract class BaseSchema<T> {
     public boolean isValid(T objectForValidation) {
 
         if (Objects.equals(objectForValidation, null)) {
-            return !isNotAllowed;
+            return !isNotAllowed();
         }
 
         for (String key: checks.keySet()) {
@@ -36,6 +45,7 @@ public abstract class BaseSchema<T> {
                 return false;
             }
         }
+
         return true;
     }
 }
