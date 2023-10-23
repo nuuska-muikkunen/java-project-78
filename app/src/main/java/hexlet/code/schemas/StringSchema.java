@@ -3,7 +3,7 @@ package hexlet.code.schemas;
 public final class StringSchema extends BaseSchema<Object> {
 
     public StringSchema() {
-        addCheck("isAllowedAndEmpty", s -> (s != null) && (!isNotAllowed() || !s.equals("")));
+        addCheck("isAllowedAndEmpty", s -> (s != null) && (!required || !s.equals("")));
         addCheck("isString", s -> s instanceof String);
     }
 
@@ -18,7 +18,7 @@ public final class StringSchema extends BaseSchema<Object> {
     }
 
     public StringSchema required() {
-        setNotAllowed(true);
+        required = true;
         return this;
     }
 }

@@ -16,7 +16,7 @@ public final class NumberSchema extends BaseSchema<Object> {
     }
 
     public NumberSchema required() {
-        setNotAllowed(true);
+        required = true;
         return this;
     }
 }
