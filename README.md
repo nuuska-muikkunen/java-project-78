@@ -1,4 +1,4 @@
-## Data Validator
+# Data Validator
 ____
 
 This library is developed to validate different objects against establishe restrictions using isValid() method having the argument of integer, String or Map types. 
